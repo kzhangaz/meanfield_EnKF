@@ -1,13 +1,14 @@
-import torch
-from src import test as winner
-import multiprocessing as mp
-
-def dummy1():
-	return None
-
+import math
+from src import control_func as cf
 
 if __name__ == "__main__":
-	print("Iason is a bad programmer")	
-	with mp.Pool(3) as pool:
-		pool.map(winner.KeIsTheWinner,[0]*3) 
+	
+	# choose method: 1 for EnKF, 2 for meanfield
+	method = 1
+	a = 0; b = math.pi
 
+	test = 1 # choose the continuous control function
+	control_func = cf.control_func(test)
+
+	print("Computing the exact solution...")
+	
