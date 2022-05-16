@@ -28,7 +28,7 @@ def ExactSolution(test):
 		ax2.set_title('control')
 		ax2.set_xlabel('x')
 		ax2.set_ylabel('u(x)')
-		return
+		return sol_func
 
 	if test == 1:
 
@@ -53,7 +53,7 @@ def ExactSolution(test):
 		ax2.set_title('control')
 		ax2.set_xlabel('x')
 		ax2.set_ylabel('u(x)')
-		return	
+		return sol_func
 
 	if test == 2:
 
@@ -78,7 +78,7 @@ def ExactSolution(test):
 		ax2.set_title('control')
 		ax2.set_xlabel('x')
 		ax2.set_ylabel('u(x)')
-		return	
+		return sol_func
 
 	if test == 3:
 
@@ -103,7 +103,7 @@ def ExactSolution(test):
 		ax2.set_title('control')
 		ax2.set_xlabel('x')
 		ax2.set_ylabel('u(x)')
-		return	
+		return sol_func
 
 	if test == 4:
 
@@ -128,5 +128,5 @@ def ExactSolution(test):
 		ax2.set_title('control')
 		ax2.set_xlabel('x')
 		ax2.set_ylabel('u(x)')
-		return	
+		return sol_func
 

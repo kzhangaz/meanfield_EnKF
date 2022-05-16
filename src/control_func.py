@@ -1,6 +1,5 @@
 import torch
 from math import pi
-import control_func as cf
 
 def control_func(test):
 	if test == 0:
