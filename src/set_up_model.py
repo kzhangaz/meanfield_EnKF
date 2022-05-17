@@ -34,4 +34,4 @@ def set_up_model(N,K,control_func,noiselevel,sol_func):
 	ax1.plot(x,sol_func(x),'k')
 	fig.show()
 
-	return observations
+	return A,observations,u_exact

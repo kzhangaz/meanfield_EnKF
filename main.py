@@ -23,7 +23,13 @@ if __name__ == "__main__":
 
 	print('2. Setup the model with %d data and level of noise %1.2f\n'%(N,noiseLevel))
 
-	observations = sm.set_up_model(N,K,control_func,noiselevel,sol_func)
+	A,observations,u_exact = sm.set_up_model(N,K,control_func,noiselevel,sol_func)
 	
 	# set up ensemble
 	ensembleSize = 200
+
+	#initEnsemble = 'KL'; % Karhunen-Loeve expansion
+	#initEnsemble = 'random'; % Normally distributed around the mean of uexact
+	initEnsemble = 'brownian';
+
+	print('3. Ensemble size = %d. Setup the initial ensembles using the %s initialization...\n'%(ensembleSize,initEnsemble))
