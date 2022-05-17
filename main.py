@@ -2,6 +2,7 @@ import math
 from src import control_func as cf
 from src import exact_sol as es
 from src import set_up_model as sm
+from src import set_up_ensemble as se
 
 if __name__ == "__main__":
 	
@@ -33,3 +34,5 @@ if __name__ == "__main__":
 	initEnsemble = 'brownian';
 
 	print('3. Ensemble size = %d. Setup the initial ensembles using the %s initialization...\n'%(ensembleSize,initEnsemble))
+
+	En = se.set_up_ensemble(ensembleSize,initEnsemble,u_exact,N,K,A)
