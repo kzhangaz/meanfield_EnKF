@@ -1,8 +1,10 @@
 import math
+import torch
 from src import control_func as cf
 from src import exact_sol as es
 from src import set_up_model as sm
 from src import set_up_ensemble as se
+from src import moments
 
 if __name__ == "__main__":
 	
@@ -36,3 +38,12 @@ if __name__ == "__main__":
 	print('3. Ensemble size = %d. Setup the initial ensembles using the %s initialization...\n'%(ensembleSize,initEnsemble))
 
 	En = se.set_up_ensemble(ensembleSize,initEnsemble,u_exact,N,K,A)
+
+	# calculate the moments
+	m1,m2 = moments.moments(En)
+
+	stopping = 'discrepancy'
+	tol = 1e-3
+	maxit = 5e3
+
+	
