@@ -9,12 +9,18 @@ class EnKFmodel(object):
 		self.control_func = control_func
 		self.noiselevel = noiselevel
 		self.sol_func = sol_func
+		self.E = []
+		self.R = []
+		self.AE = []
+		self.AR = []
+		self.M = []
 
 	set_up_model = set_up_model.set_up_model
-	#A,G,observations,u_exact are set
+	#A,G,observations,u_exact,p,noise,gamma are set
 
 	set_up_ensemble = set_up_ensemble.set_up_ensemble
 	# En,initEnsemble,ensembleSize are set
+
 
 	
 	

@@ -44,5 +44,8 @@ def set_up_model(self):
 	self.G = G
 	self.observations = observations
 	self.u_exact = u_exact
-	#A,G,observations,u_exact
+	self.p = p
+	self.noise = noise
+	self.gamma = gamma
+	#A,G,observations,u_exact,p,noise,gamma
 	return
