@@ -12,9 +12,9 @@ def convergence(self):
 	gamma = self.gamma
 
 	e = En - m1[:,None]
-	r = En - u_exact[:,None]
+	r = En - u_exact[:,None] # N * ensembleSize
 
-	misfit = mm(G,r) - noise[:,None]
+	misfit = mm(G,r) - noise[:,None] # N * ensembleSize
 
 	Ei = sum(pow(linalg.vector_norm(e,dim=0),2))\
 		/ (linalg.vector_norm(m1)**2)
@@ -34,8 +34,7 @@ def convergence(self):
 		/ (linalg.vector_norm(p)**2)
 	self.AR = self.AR.append(ARi/self.ensembleSize)
 
-	Mi = sum(pow(linalg.vector_norm(misfit,dim=0),2))\
-		/ (linalg.vector_norm(u_exact)**2)
+	Mi = sum(pow(linalg.vector_norm(misfit,dim=0),2))
 	self.M = self.M.append(Mi/self.ensembleSize)
 
 	return

@@ -46,7 +46,6 @@ if __name__ == "__main__":
 	# m1,m2 = moments.moments(En)
 
 	stopping = 'discrepancy'
-	tol = 1e-3
 	maxit = 5e3
 
 	

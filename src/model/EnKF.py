@@ -1,5 +1,6 @@
 from src import set_up_model
 from src import set_up_ensemble
+from update.convergence import convergence
 
 class EnKFmodel(object):
 	
@@ -13,13 +14,19 @@ class EnKFmodel(object):
 		self.R = []
 		self.AE = []
 		self.AR = []
-		self.M = []
+		self.M = [] # M[i] size: 1 * 1
 
 	set_up_model = set_up_model.set_up_model
 	#A,G,observations,u_exact,p,noise,gamma are set
+	# u_exact: N * 1
+	# noise size: K * 1
 
 	set_up_ensemble = set_up_ensemble.set_up_ensemble
 	# En,initEnsemble,ensembleSize are set
+	# En size: N * ensemblrSize
+
+	convergence = convergence
+
 
 
 	
