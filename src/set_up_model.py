@@ -2,8 +2,14 @@ from torch import *
 from math import pi
 import matplotlib as plt
 
-def set_up_model(N,K,control_func,noiselevel,sol_func):
-	observations = 0
+def set_up_model(self):
+# N,K,control_func,noiselevel,sol_func
+	N = self.N
+	K = self.K
+	control_func = self.control_func
+	noiselevel = self.noiselevel
+	sol_func = self.sol_func
+	
 	L = zeros(N,K)
 	L = (K/pi)**2 * (2*eye(K) - \
 		diag_embed(ones(K-1),1) - diag_embed(ones(K-1),-1))
@@ -34,4 +40,9 @@ def set_up_model(N,K,control_func,noiselevel,sol_func):
 	ax1.plot(x,sol_func(x),'k')
 	fig.show()
 
-	return A,observations,u_exact
+	self.A = A
+	self.G = G
+	self.observations = observations
+	self.u_exact = u_exact
+	#A,G,observations,u_exact
+	return

@@ -2,9 +2,10 @@ import math
 import torch
 from src import control_func as cf
 from src import exact_sol as es
-from src import set_up_model as sm
-from src import set_up_ensemble as se
+# from src import set_up_model as sm
+# from src import set_up_ensemble as se
 from src import moments
+from model import EnKF
 
 if __name__ == "__main__":
 	
@@ -24,10 +25,12 @@ if __name__ == "__main__":
 	N = 2**8 # Dimension of the control
 	noiselevel = 0.01^2;
 
-	print('2. Setup the model with %d data and level of noise %1.2f\n'%(N,noiseLevel))
+	print('2. Setup the model with %d data and level of noise %1.2f\n'%(N,noiselevel))
 
-	A,observations,u_exact = sm.set_up_model(N,K,control_func,noiselevel,sol_func)
-	
+	# A,G,observations,u_exact = sm.set_up_model(N,K,control_func,noiselevel,sol_func)
+	model = EnKF.EnKFmodel(N,K,control_func,noiselevel,sol_func)
+	model.set_up_model()
+
 	# set up ensemble
 	ensembleSize = 200
 
@@ -37,10 +40,10 @@ if __name__ == "__main__":
 
 	print('3. Ensemble size = %d. Setup the initial ensembles using the %s initialization...\n'%(ensembleSize,initEnsemble))
 
-	En = se.set_up_ensemble(ensembleSize,initEnsemble,u_exact,N,K,A)
+	model.set_up_ensemble(ensembleSize,initEnsemble)
 
 	# calculate the moments
-	m1,m2 = moments.moments(En)
+	# m1,m2 = moments.moments(En)
 
 	stopping = 'discrepancy'
 	tol = 1e-3

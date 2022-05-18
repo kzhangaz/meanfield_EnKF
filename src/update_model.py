@@ -1,4 +1,5 @@
 import timer
+from update import update_EnKF as upEnKF
 
 def update_model(method,maxit):
 
@@ -8,7 +9,7 @@ def update_model(method,maxit):
 		ltype = '-x'
 		print('4. EnKF solver with max number of iteration %d' % maxit)
 		with timer.Timer('EnKF timer'):
-			update = 1
+			update_EnKF = 1
 
 	if method == 5:
 		dsc=1
