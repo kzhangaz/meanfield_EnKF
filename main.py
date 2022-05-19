@@ -1,10 +1,5 @@
-import math
-import torch
 from src import control_func as cf
 from src import exact_sol as es
-# from src import set_up_model as sm
-# from src import set_up_ensemble as se
-from src import moments
 from model import EnKF
 
 if __name__ == "__main__":
@@ -42,8 +37,6 @@ if __name__ == "__main__":
 
 	model.set_up_ensemble(ensembleSize,initEnsemble)
 
-	# calculate the moments
-	# m1,m2 = moments.moments(En)
-
+	model.update_model(method)
 
 	

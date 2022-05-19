@@ -1,6 +1,7 @@
 from src import set_up_model
 from src import set_up_ensemble
 from update.convergence import convergence
+from src import update_model
 
 class EnKFmodel(object):
 	
@@ -27,6 +28,8 @@ class EnKFmodel(object):
 	# m1, m2
 
 	convergence = convergence
+
+	update_model = update_model.update_model
 
 
 
