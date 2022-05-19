@@ -1,5 +1,6 @@
 from sympy import true
 from torch import *
+from src import moments
 
 def is_sorted(x):
 	sorted,_ = diag(x).sort(descending=true)
@@ -41,6 +42,7 @@ def set_up_ensemble(self,ensembleSize,initEnsemble):
 			En[j,:] = mean(u_exact) * ones(ensembleSize) + randn(ensembleSize)
 		
 		self.En = En
+		self.m1,self.m2 = moments.moments(self.En)
 
 		return
 
@@ -53,6 +55,7 @@ def set_up_ensemble(self,ensembleSize,initEnsemble):
 		En = t(En)
 
 		self.En = En
+		self.m1,self.m2 = moments.moments(self.En)
 
 		return
 

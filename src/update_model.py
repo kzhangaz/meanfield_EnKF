@@ -1,15 +1,19 @@
 import timer
-from update import update_EnKF as upEnKF
+from update import update_EnKF
+from update import update_mean_field
 
-def update_model(method,maxit):
+def update_model(self,method):
 
-	methodC = method
+	stopping = 'discrepancy'
+	maxit = 5e3
 
 	if method == 1:
-		ltype = '-x'
 		print('4. EnKF solver with max number of iteration %d' % maxit)
 		with timer.Timer('EnKF timer'):
-			update_EnKF = 1
+			update_EnKF.update_EnKF(self,maxit,stopping)
 
 	if method == 5:
-		dsc=1
+		Minteracting = self.ensembleSize
+		tfin = 10
+		with timer.Timer('mean_field timer'):
+			update_mean_field(self,maxit,stopping,Minteracting,tfin)

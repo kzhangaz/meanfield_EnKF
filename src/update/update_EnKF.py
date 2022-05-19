@@ -1,6 +1,7 @@
 from pickle import TRUE
 from torch import *
 from src import covmat
+from src import moments
 def early_stopping(stopping,i,Mi,Mi1,noise):
 
 	#Discrepancy principle
@@ -28,16 +29,18 @@ def update_EnKF(self,maxit,stopping):
 		Cup = covmat.covmat(self.En,mm(self.G,self.En))
 		Cpp = covmat.covmat(mm(self.G,self.En),mm(self.G,self.En))
 
-	for j in range(self.ensembleSize):
-		temp = mm(linalg.inv(Cpp + self.gamma),\
-					self.observations - mm(self.G,self.En[:,j]) )
-		self.En[:,j] = self.En[:,j] + mm(Cup,temp)
+		for j in range(self.ensembleSize):
+			temp = mm(linalg.inv(Cpp + self.gamma),\
+						self.observations - mm(self.G,self.En[:,j]) )
+			self.En[:,j] = self.En[:,j] + mm(Cup,temp)
 
-	if (i/maxit * 100) % 10 == 0:
-		print(' %d ',i/maxit*100)
+		self.m1,self.m2 = moments.moments(self.En)
+
+		if (i/maxit * 100) % 10 == 0:
+			print(' %d ',i/maxit*100)
 	
 	self.convergence()
 	
-
+	self.final_plot(i,method=1)
 	
 	return

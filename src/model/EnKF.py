@@ -22,8 +22,9 @@ class EnKFmodel(object):
 	# noise size: K * 1
 
 	set_up_ensemble = set_up_ensemble.set_up_ensemble
-	# En,initEnsemble,ensembleSize are set
+	# En,initEnsemble,ensembleSize,m1,m2 are set
 	# En size: N * ensemblrSize
+	# m1, m2
 
 	convergence = convergence
 

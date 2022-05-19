@@ -1,0 +1,69 @@
+import matplotlib.pyplot as plt
+import torch
+from math import pi
+
+def final_plot(self,iter,method):
+	if method == 1:
+		ltype = '-x'
+		color = 'b'
+	elif method == 5:
+		ltype = '-v'
+		color = 'r'
+	else:
+		print("No such method")
+		return
+	
+	# plot E, AE
+	f, (ax1,ax2) = plt.subplots(2,1)
+	
+	ax1.set_yscale('symlog')
+	ax1.plot(torch.linspace(0,iter,iter+1),self.E,ltype,color=color)
+	ax1.set_title('Deviation from the mean')
+	ax1.set_xlabel('Iteration')
+	ax1.set_ylabel('v')
+
+	ax2.set_yscale('symlog')
+	ax2.plot(torch.linspace(0,iter,iter+1),self.AE,ltype,color=color)
+	ax2.set_xlabel('Iteration')
+	ax2.set_ylabel('V')
+
+	# plot R, AR
+	f, (ax1,ax2) = plt.subplots(2,1)
+	
+	ax1.set_yscale('symlog')
+	ax1.plot(torch.linspace(0,iter,iter+1),self.R,ltype,color=color)
+	ax1.set_title('Residuals')
+	ax1.set_xlabel('Iteration')
+	ax1.set_ylabel('r')
+
+	ax2.set_yscale('symlog')
+	ax2.plot(torch.linspace(0,iter,iter+1),self.AR,ltype,color=color)
+	ax2.set_xlabel('Iteration')
+	ax2.set_ylabel('R')
+
+	# plot M
+	plt.figure()
+	plt.semilogy(torch.linspace(0,iter,iter+1),self.M,ltype,'Color')
+	plt.semilogy(torch.linspace(0,iter,iter+1),)
+	plt.xlabel('Iteration')
+	plt.ylabel('var theta')
+	plt.title('Misfit')
+
+	# plot 
+	x = torch.linspace(0,pi)
+	plt.figure()
+	if method == 1:
+		plt.plot(x,self.sol_func(x),'k-')
+	plt.plot(x,torch.mm(self.G,self.m1),ltype,color=color)
+	plt.title('Exact solution with u(x)=1 vs Reconstruction')
+	plt.xlabel('x')
+
+	# plot
+	plt.figure()
+	if method == 1:
+		plt.plot(x,self.control_func(x),'k-')
+	plt.plot(x,self.m1,ltype,color=color)
+	plt.title('Reconstruction of the control')
+	plt.xlabel('x')
+
+	return
