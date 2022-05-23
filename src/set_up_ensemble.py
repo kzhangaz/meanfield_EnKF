@@ -1,6 +1,7 @@
 from sympy import true
 from torch import *
 from src import moments
+import torch.linalg as linalg
 
 def is_sorted(x):
 	sorted,_ = diag(x).sort(descending=true)
@@ -33,6 +34,7 @@ def set_up_ensemble(self,ensembleSize,initEnsemble):
 			En[:,j] = sqrt(D[j,j] + mean(u_exact)) * V[j,:]
 
 		self.En = En
+		self.m1,self.m2 = moments.moments(self.En)
 
 		return
 	

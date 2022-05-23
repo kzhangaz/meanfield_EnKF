@@ -1,12 +1,20 @@
-from torch import *
+import torch
 
 def moments(En):
 
-	m1 = mean(En,dim=1)
-	m2 = zeros(En.size(dim=0),En.size(dim=0))
+	m1 = torch.mean(En,dim=1) 
+	m2 = torch.zeros(En.size(dim=0),En.size(dim=0))
 	
 	for j in range(En.size(dim=1)):
-		m2 = m2 + mm(En[:,j],t(En[:,j]))
+		
+		temp = torch.zeros(m2.shape)
+		for i,entry in enumerate(En[:,j]):
+			temp[i,:] = entry*En[:,j]
+		# for i in range(En.size(dim=1)):
+		# 	entry = En[i,j]
+		# 	temp[i,:] = entry*En[:,j]
+
+		m2 = m2 + temp
 
 	m2 = m2/En.size(dim=1)
 	

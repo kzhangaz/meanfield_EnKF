@@ -1,6 +1,6 @@
-import timer
-from update import update_EnKF
-from update import update_mean_field
+from src import timer
+from src.update import update_EnKF
+from src.update import update_mean_field
 
 def update_model(self,method):
 
@@ -16,4 +16,4 @@ def update_model(self,method):
 		Minteracting = self.ensembleSize
 		tfin = 10
 		with timer.Timer('mean_field timer'):
-			update_mean_field(self,maxit,stopping,Minteracting,tfin)
+			update_mean_field.update_mean_field(self,maxit,stopping,Minteracting,tfin)

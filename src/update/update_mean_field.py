@@ -1,8 +1,11 @@
 from pickle import TRUE
-from torch import *
+from torch import mm
+from torch import linalg
+from torch import mean
+from torch import isreal,real,zeros,multinomial,linspace
 from src import covmat
 from src import moments
-from update_EnKF import early_stopping
+from src.update import update_EnKF
 
 def update_mean_field(self,maxit,stopping,Minteracting,tfin):
 	print("running update_mean_field...")
@@ -35,7 +38,7 @@ def update_mean_field(self,maxit,stopping,Minteracting,tfin):
 		self.convergence()
 
 		if i > 0:
-			if early_stopping(stopping,i,self.M[i],self.M[i-1],self.noise):
+			if update_EnKF.early_stopping(stopping,i,self.M[i],self.M[i-1],self.noise):
 				break
 		
 		Cup = covmat.covmat(self.En,mm(self.G,self.En))

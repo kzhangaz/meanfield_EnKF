@@ -1,6 +1,6 @@
 from src import control_func as cf
 from src import exact_sol as es
-from model import EnKF
+from src.model import EnKF
 
 if __name__ == "__main__":
 	
@@ -18,9 +18,9 @@ if __name__ == "__main__":
 	# set up model
 	K = 2**8 # Dimension of the observed data
 	N = 2**8 # Dimension of the control
-	noiselevel = 0.01^2;
+	noiselevel = 0.01**2;
 
-	print('2. Setup the model with %d data and level of noise %1.2f\n'%(N,noiselevel))
+	print('2. Setup the model with %d data and level of noise %f\n'%(N,noiselevel))
 
 	# A,G,observations,u_exact = sm.set_up_model(N,K,control_func,noiselevel,sol_func)
 	model = EnKF.EnKFmodel(N,K,control_func,noiselevel,sol_func)

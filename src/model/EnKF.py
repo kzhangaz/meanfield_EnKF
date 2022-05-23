@@ -1,6 +1,6 @@
 from src import set_up_model
 from src import set_up_ensemble
-from update.convergence import convergence
+from src.update.convergence import convergence
 from src import update_model
 
 class EnKFmodel(object):
@@ -9,8 +9,9 @@ class EnKFmodel(object):
 		self.K = K # Dimension of the observed data y
 		self.N = N # Dimension of the control 
 		self.control_func = control_func
-		self.noiselevel = noiselevel
+		self.noiselevel = noiselevel # scalar
 		self.sol_func = sol_func
+
 		self.E = []
 		self.R = []
 		self.AE = []
@@ -19,13 +20,19 @@ class EnKFmodel(object):
 
 	set_up_model = set_up_model.set_up_model
 	#A,G,observations,u_exact,p,noise,gamma are set
-	# u_exact: N * 1
-	# noise size: K * 1
+	# G (y = G*u): K * N
+	# p: K
+	# obsevations: K
+	# u_exact: N
+	# noise size: K
+	# gamma (cov of noise distribution):  K * K
 
 	set_up_ensemble = set_up_ensemble.set_up_ensemble
 	# En,initEnsemble,ensembleSize,m1,m2 are set
-	# En size: N * ensemblrSize
-	# m1, m2
+	# ensembleSize: J=200
+	# En size: N * J
+	# m1: N
+	# m2: 
 
 	convergence = convergence
 

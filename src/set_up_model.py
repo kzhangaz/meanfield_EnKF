@@ -1,6 +1,8 @@
 from torch import *
 from math import pi
-import matplotlib as plt
+import matplotlib.pyplot as plt
+import torch.linalg
+import torch.distributions as distributions
 
 def set_up_model(self):
 # N,K,control_func,noiselevel,sol_func
@@ -11,19 +13,19 @@ def set_up_model(self):
 	sol_func = self.sol_func
 	
 	L = zeros(N,K)
-	L = (K/pi)**2 * (2*eye(K) - \
+	L = ((K/pi)**2) * (2*eye(K) - \
 		diag_embed(ones(K-1),1) - diag_embed(ones(K-1),-1))
 
 	A = L + eye(N,K)
-	G = linalg.pinv(A)
+	G = torch.linalg.pinv(A)
 
 	x = linspace(0,pi,N)
 	u_exact = t(control_func(x))
-	p = mm(G,u_exact)
+	p = matmul(G,u_exact)
 
 	if noiselevel > 0:
 		gamma = noiselevel*eye(K)
-		noise = t(distributions.MultivariateNormal(zeros(K),gamma))
+		noise = distributions.MultivariateNormal(zeros(K),gamma).sample()
 	else:
 		gamma = eye(K)
 		noise = zeros(K)
