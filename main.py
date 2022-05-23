@@ -31,7 +31,7 @@ if __name__ == "__main__":
 
 	#initEnsemble = 'KL'; % Karhunen-Loeve expansion
 	#initEnsemble = 'random'; % Normally distributed around the mean of uexact
-	initEnsemble = 'brownian';
+	initEnsemble = 'brownian'
 
 	print('3. Ensemble size = %d. Setup the initial ensembles using the %s initialization...\n'%(ensembleSize,initEnsemble))
 

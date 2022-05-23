@@ -2,6 +2,7 @@ from src import set_up_model
 from src import set_up_ensemble
 from src.update.convergence import convergence
 from src import update_model
+from src import final_plots
 
 class EnKFmodel(object):
 	
@@ -38,7 +39,7 @@ class EnKFmodel(object):
 
 	update_model = update_model.update_model
 
-
+	final_plot = final_plots.final_plot
 
 	
 	
