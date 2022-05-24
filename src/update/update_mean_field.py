@@ -1,7 +1,7 @@
 from pickle import TRUE
 from torch import mm,matmul
 from torch import linalg
-from torch import mean
+from torch import mean,FloatTensor
 from torch import isreal,real,zeros,multinomial,linspace,t
 from src import covmat
 from src import moments
@@ -21,9 +21,9 @@ def update_mean_field(self,maxit,stopping,Minteracting,tfin):
 
 		eig1 = mm((self.m2-vecmul(self.m1,self.m1)),t(self.G))
 		eig2 = mm(linalg.pinv(self.gamma),self.G)
-		eig = linalg.eig(-mm(eig1,eig2))
+		eig,_ = linalg.eig(-mm(eig1,eig2))
 
-		if mean(isreal(eig)) != 1:
+		if mean(isreal(eig).type(FloatTensor)) != 1:
 			eig = real(eig)
 
 		if self.ensembleSize==Minteracting and i==0:
@@ -48,16 +48,16 @@ def update_mean_field(self,maxit,stopping,Minteracting,tfin):
 
 		for j in range(self.ensembleSize):
 			# xi = noiseLevel.*randn(1,N) # mvnrnd(zeros(1,N),gamma)
-			part2 = mm(linalg.inv(self.gamma),self.observations-matmul(self.G,self.En[:,j]))
+			part2 = matmul(linalg.inv(self.gamma),self.observations-matmul(self.G,self.En[:,j]))
 
 			if Minteracting == self.ensembleSize:
-				grad = dt* mm(eig1,part2)
+				grad = dt* matmul(eig1,part2)
 				self.En[:,j] = self.En[:,j] + grad # + sqrt(dt)*t(xi);
 			else:
 				Idx = multinomial(linspace(1,self.ensembleSize,self.ensembleSize),Minteracting)
 				m1Idx,m2Idx = moments.moments(self.En[:,Idx])
-				part1 = dt* mm( (m2Idx-mm(m1Idx,t(m1Idx))) , t(self.G) )
-				grad = mm(part1,part2)
+				part1 = dt* matmul( (m2Idx- vecmul(m1Idx,m1Idx) ) , t(self.G) )
+				grad = matmul(part1,part2)
 				TempEn[:,j] = self.En[:,j] + grad # + sqrt(dt)*t(xi);
 		
 		if Minteracting == self.ensembleSize:
@@ -66,8 +66,10 @@ def update_mean_field(self,maxit,stopping,Minteracting,tfin):
 			self.En = TempEn
 			self.m1,self.m2 = moments.moments(self.En)
 
-		if ((time(i)/tfin) * 100) % 10 == 0:
-			print(' %d ',(time(i)/tfin) * 100)
+		if ((time[i]/tfin) * 100) % 10 == 0:
+			print(' %d percent of tfin finished running'%((time[i]/tfin) * 100))
+		
+		time.append(time[i] + dt)
 	
 	self.convergence()
 	
