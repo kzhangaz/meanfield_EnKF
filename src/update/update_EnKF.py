@@ -45,7 +45,7 @@ def update_EnKF(self,maxit,stopping):
 		self.m1,self.m2 = moments.moments(self.En)
 
 		if ((i+1)/maxit * 100) % 10 == 0:
-			print('the %d-th iter of %d'%(i,maxit))
+			print('the %d-th iter of %d'%(i+1,maxit))
 	
 	self.convergence()
 	

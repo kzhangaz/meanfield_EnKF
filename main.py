@@ -4,8 +4,8 @@ from src.model import EnKF
 
 if __name__ == "__main__":
 	
-	# choose method: 1 for EnKF, 2 for meanfield
-	method = 1
+	# choose method: 1 for EnKF, 5 for meanfield
+	method = 5
 	# a = 0; b = math.pi
 
 	test = 1 # choose the continuous control function

@@ -5,7 +5,8 @@ from src.update import update_mean_field
 def update_model(self,method):
 
 	stopping = 'discrepancy'
-	maxit = 5e3
+	# maxit = 5e3
+	maxit = 5
 
 	if method == 1:
 		print('4. EnKF solver with max number of iteration %d' % maxit)

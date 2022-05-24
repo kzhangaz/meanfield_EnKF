@@ -1,4 +1,5 @@
 import torch
+from src.vecmul import vecmul
 
 def moments(En):
 
@@ -7,13 +8,10 @@ def moments(En):
 	
 	for j in range(En.size(dim=1)):
 		
-		temp = torch.zeros(m2.shape)
-		for i,entry in enumerate(En[:,j]):
-			temp[i,:] = entry*En[:,j]
-		# for i in range(En.size(dim=1)):
-		# 	entry = En[i,j]
+		# temp = torch.zeros(m2.shape)
+		# for i,entry in enumerate(En[:,j]):
 		# 	temp[i,:] = entry*En[:,j]
-
+		temp = vecmul(En[:,j],En[:,j])
 		m2 = m2 + temp
 
 	m2 = m2/En.size(dim=1)
