@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import torch.linalg
 import torch.distributions as distributions
 
-def set_up_model(self):
+def set_up_model(self,image_path):
 # N,K,control_func,noiselevel,sol_func
 	N = self.N
 	K = self.K
@@ -34,13 +34,13 @@ def set_up_model(self):
 
 	# plot
 	fig=plt.figure()
-	ax=fig.add_axes([0,0,1,1])
-	ax.plot(x,observations,'r')
-	ax.legend(labels=('Exact solution','Noisy data'))
-	ax1=fig.add_axes([0,0,1,1])
+	# ax=fig.add_axes([0,0,1,1])
+	# ax.plot(x,observations,'r')
+	# ax.legend(labels=('Exact solution','Noisy data'))
+	ax1=fig.add_axes([0.1,0.1,0.8,0.8])
 	ax1.plot(x,observations,'r')
 	ax1.plot(x,sol_func(x),'k')
-	fig.show()
+	fig.savefig(image_path+'/observations.jpg')
 
 	self.A = A
 	self.G = G

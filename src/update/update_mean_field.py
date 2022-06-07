@@ -8,7 +8,7 @@ from src import moments
 from src.update import update_EnKF
 from src.vecmul import vecmul
 
-def update_mean_field(self,maxit,stopping,Minteracting,tfin):
+def update_mean_field(self,maxit,stopping,Minteracting,tfin,image_path):
 	print("running update_mean_field...")
 
 
@@ -73,6 +73,6 @@ def update_mean_field(self,maxit,stopping,Minteracting,tfin):
 	
 	self.convergence()
 	
-	self.final_plot(i,method=5)
+	self.final_plot(i,image_path,method=5)
 	
 	return

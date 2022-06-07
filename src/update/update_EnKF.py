@@ -22,7 +22,7 @@ def early_stopping(stopping,i,Mi,Mi1,noise):
 		else:
 			return False
 
-def update_EnKF(self,maxit,stopping):
+def update_EnKF(self,maxit,stopping,image_path):
 	print("running update_EnKF...")
 
 	for i in range(int(maxit)):
@@ -49,6 +49,6 @@ def update_EnKF(self,maxit,stopping):
 	
 	self.convergence()
 	
-	self.final_plot(i,method=1)
+	self.final_plot(i,image_path,method=1)
 	
 	return
